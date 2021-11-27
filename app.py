@@ -1,18 +1,15 @@
 import time
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+from fpl import GPIO, LED
 
 channel = 17
-
-GPIO.setup(channel, GPIO.OUT)
+io = GPIO.create()
+led = LED(channel, io)
 
 try:
     while True:
-        GPIO.output(channel, GPIO.HIGH)
+        led.turn_on()
         time.sleep(1)
-        GPIO.output(channel, GPIO.LOW)
+        led.turn_off()
         time.sleep(1)
 finally:
-    GPIO.output(channel, GPIO.LOW)
-    GPIO.cleanup()
+    io.finalize()

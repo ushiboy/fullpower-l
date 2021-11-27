@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import time
 
+from ._exception import TerminatedException
 from ._gpio import GPIO
 from ._io import IOInterface
 from ._led import LED
@@ -20,7 +21,7 @@ class Application:
             while True:
                 self._led_status = app_process(led, self._led_status)
                 time.sleep(1)
-        except KeyboardInterrupt:
+        except (KeyboardInterrupt, TerminatedException):
             pass  # ignore
         finally:
             self._io.finalize()

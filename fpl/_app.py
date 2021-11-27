@@ -24,15 +24,15 @@ class Application:
     def __init__(self, io: IOInterface, led_channel: int, app_proc: AppProc = app_process, wait_sec: int = 1):
         self._io = io
         self._led_channel = led_channel
-        self._led_status = False  # On: True, Off: False
         self._app_process = app_proc
         self._wait_sec = wait_sec
 
     def run(self) -> None:
+        led_status = False  # On: True, Off: False
         try:
             led = LED(self._led_channel, self._io)
             while True:
-                self._led_status = self._app_process(led, self._led_status)
+                led_status = self._app_process(led, led_status)
                 time.sleep(self._wait_sec)
         except (KeyboardInterrupt, TerminatedException):
             pass  # ignore

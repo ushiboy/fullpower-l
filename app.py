@@ -1,18 +1,7 @@
-import time
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-GPIO.setwarnings(False)
+import signal
+from fpl import Application, raise_terminated
 
-channel = 17
-
-GPIO.setup(channel, GPIO.OUT)
-
-try:
-    while True:
-        GPIO.output(channel, GPIO.HIGH)
-        time.sleep(1)
-        GPIO.output(channel, GPIO.LOW)
-        time.sleep(1)
-finally:
-    GPIO.output(channel, GPIO.LOW)
-    GPIO.cleanup()
+if __name__ == '__main__':
+    signal.signal(signal.SIGTERM, raise_terminated)
+    channel = 17
+    Application.create(channel).run()

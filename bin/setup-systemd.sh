@@ -20,3 +20,5 @@ Type = simple
 [Install]
 WantedBy = multi-user.target
 EOF
+
+systemctl enable fullpower-led.service

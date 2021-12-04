@@ -5,5 +5,4 @@ if [ "`whoami`" != "root" ]; then
     exit 1
 fi
 
-systemctl enable fullpower-led.service
 raspi-config nonint do_overlayfs 0
